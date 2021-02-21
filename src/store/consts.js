@@ -1,0 +1,1 @@
+export const IS_LOADER_ACTIVE = 'IS_LOADER_ACTIVE'

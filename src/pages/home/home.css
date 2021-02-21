@@ -1,0 +1,13 @@
+.home-wrapper {
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+  grid-template-rows: repeat(2, minmax(100px, 150px));
+  align-content: center;
+  grid-auto-flow: row;
+  place-items: center;
+  flex: 1 1 auto;
+  background-image: url(../../assets//pokemon-bgd.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}

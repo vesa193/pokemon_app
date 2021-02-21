@@ -1,0 +1,18 @@
+.pokemon-title.MuiTypography-h5 {
+  font-size: 2.3rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.pokemon-desc.MuiTypography-body2 {
+  display: flex;
+  grid-gap: 5px;
+  font-size: 1.5rem;
+}
+
+.pokemon-desc.MuiTypography-body2 > span {
+  background: #212121;
+  color: white;
+  padding: 3px;
+  border-radius: 4px;
+}
