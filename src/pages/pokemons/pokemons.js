@@ -29,7 +29,7 @@ const PokemonsPage = () => {
   const pokemonsCount = Math.floor(pokemonsData?.count / 20)
   const lsPageNum = localStorage.getItem('page')
   console.log('lsPageNum', lsPageNum)
-  const [page, setPage] = React.useState(lsPageNum);
+  const [page, setPage] = React.useState(lsPageNum || 1);
   const pokemonStateClass = pokemonsState ? 'pokemons-exist' : 'pokemons-unexist'
   const newClass = pokemonsState ? 'auto-grid' : ''
   console.log('localStoragePokemons', pokemonsCount)
