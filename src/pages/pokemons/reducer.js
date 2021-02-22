@@ -1,7 +1,8 @@
 import { LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, SET_POKEMONS_PROP } from "./consts"
 
 const initialState = {
-  pokemons: null
+  pokemons: null,
+  pokemonsAll: null
 }
 
 function pokemonsReducer(state = initialState, action) {

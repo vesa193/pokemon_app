@@ -1,5 +1,7 @@
 import React from 'react'
 import Card from '@material-ui/core/Card';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { Button, makeStyles } from '@material-ui/core';
 import bgdImage from '../../assets/the_pokemon.jpg'
 import './pokemon.css'
+import { loadPokemonDetails } from '../../pages/pokemons/actions';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -25,8 +28,17 @@ const useStyles = makeStyles((theme) => {
 
 const Pokemon = ({ pokemon }) => {
   const classes = useStyles();
+  const history = useHistory()
+  const state = useSelector(state => state.common)
+  const dispatch = useDispatch()
 
-  let content = `No Pokemons data`
+  const handleShowPokemonDetails = (pokemonUrl) => {
+    const pokemonId = pokemonUrl.split('pokemon/')[1].replace('/', '')
+    dispatch(loadPokemonDetails(pokemonId))
+    history.push(`/pokemon-details/${pokemonId}`)
+  }
+
+  let content = state.isLoading ? `Please Wait ...` : `No Pokemons data`
 
   if (pokemon) {
     content = pokemon?.map(p => {
@@ -53,7 +65,7 @@ const Pokemon = ({ pokemon }) => {
               {/* <Button size="small" color="primary">
                 Share
               </Button> */}
-              <Button size="small" color="primary" onClick={() => console.log('ind', p.url)}>
+              <Button size="small" color="primary" onClick={() => handleShowPokemonDetails(p.url)}>
                 View details ...
               </Button>
             </CardActions>

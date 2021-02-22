@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import history from './history';
+import AllPokemons from './pages/allPokemons/allPokemons';
 import HomePage from './pages/home/home';
 import PokemonDetails from './pages/pokemon-details/pokemon-details';
 import PokemonsPage from './pages/pokemons/pokemons';
@@ -15,6 +16,9 @@ function App() {
           <HomePage />
         </Route>
         <Route path="/pokemons/:paginateIndex">
+          <PokemonsPage />
+        </Route>
+        <Route path="/pokemons/all">
           <PokemonsPage />
         </Route>
         <Route path="/pokemon-details/:pokemonId">

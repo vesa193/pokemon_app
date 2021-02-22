@@ -34,10 +34,8 @@ export const Navbar = (props) => {
   const currentPath = history.location.pathname
   const { navLinks } = navConfig
   const lsPage = localStorage.getItem('page')
-  console.log('infooo', navConfig, navLinks)
 
   const handleNavLink = (path, history) => forwardTo(path, history)
-  console.log('currentPath', currentPath)
   const styledLink = (path) => {
     let className = null
     if (currentPath === `${path}/${lsPage || '1'}`) {

@@ -3,3 +3,21 @@
   display: grid;
   place-items: center;
 }
+
+.pokemon-details .MuiCardMedia-img {
+  object-fit: contain;
+}
+
+.pokemon-details .MuiCard-root {
+  position: relative;
+}
+
+.pokemon-details .MuiPaper-root.MuiCard-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded::after {
+  position: absolute;
+  content: 'Click for more images';
+  top: 10px;
+  left: 10px;
+  padding: 7px;
+  border: 1px solid #000;
+  border-radius: 2px;
+}

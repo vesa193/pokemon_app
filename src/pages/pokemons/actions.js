@@ -1,4 +1,4 @@
-import { LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS } from './consts'
+import { LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS } from './consts'
 
 export const loadPokemons = () => {
   return {
@@ -21,10 +21,12 @@ export const loadPokemonsFailed = (error) => {
 }
 
 
-export const loadPaginatedPokemons = (offsetNum) => {
+export const loadPaginatedPokemons = (offsetNum, isShowAll, cb) => {
   return {
     type: LOAD_PAGINATED_DATA,
-    offsetNum
+    offsetNum,
+    isShowAll,
+    cb
   }
 }
 
@@ -39,5 +41,20 @@ export const loadPaginatedPokemonsFailed = (error) => {
   return {
     type: LOAD_PAGINATED_DATA_FAILED,
     error
+  }
+}
+
+export const loadPokemonDetails = (pokemonUrl) => {
+  return {
+    type: LOAD_POKEMON_DETAILS,
+    pokemonUrl
+  }
+}
+
+export const loadAllPokemons = (limit, cb) => {
+  return {
+    type: LOAD_ALL_POKEMONS,
+    limit,
+    cb
   }
 }
