@@ -58,7 +58,7 @@ export const Navbar = (props) => {
         </Typography>
         {
           navLinks.map(link => (
-            <Link key={ link.id } className={`${classes.link} ${styledLink(link.path)}`} to={ link.label !== 'Home' ? `${link.path}/${lsPage || '1'}`: link.path }>
+            <Link key={ link.id } className={`${classes.link} ${styledLink(link.path)}`} to={ link.label !== 'Home' ? `${link.path}/${lsPage || 1}`: link.path }>
               <Button color="inherit" className={`${styledLink(link.path)}`}>
                 { link.label }
               </Button>

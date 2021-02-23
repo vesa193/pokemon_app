@@ -1,4 +1,4 @@
-import { LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS } from './consts'
+import { LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME } from './consts'
 
 export const loadPokemons = () => {
   return {
@@ -56,5 +56,13 @@ export const loadAllPokemons = (limit, cb) => {
     type: LOAD_ALL_POKEMONS,
     limit,
     cb
+  }
+}
+
+
+export const searchPokemonName = (name) => {
+  return {
+    type: SEARCH_POKEMON_NAME,
+    name
   }
 }

@@ -1,1 +1,3 @@
 export const IS_LOADER_ACTIVE = 'IS_LOADER_ACTIVE'
+export const SET_COMMON_PROP = 'SET_COMMON_PROP'
+export const INIT_SAGA = 'INIT_SAGA'

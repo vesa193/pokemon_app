@@ -115,6 +115,9 @@ const PokemonDetails = () => {
                 <span>This is funny pokemon its weight is <strong>{data?.weight}</strong> and height <strong>{data?.height}</strong>.</span>
               </Typography>
               <Typography variant="body2" color="textSecondary" component="h5" className={classes.typography}>
+                <span>You can click on the image to see more <strong>images</strong> of the pokemon.</span>
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="h5" className={classes.typography}>
                 <span>Abilities:</span> {data?.abilities.map((a, i) =>(
                   <li key={i}><strong>{`${a?.ability?.name}`}</strong></li>
                 ))}

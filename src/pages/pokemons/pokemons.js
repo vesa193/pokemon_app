@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import { Grid, makeStyles, TextField } from '@material-ui/core';
-import Pagination, { usePagination } from '@material-ui/lab/Pagination';
+import { makeStyles, TextField } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon'
 import './pokemons.css'
-import { loadAllPokemons, loadPaginatedPokemons, loadPokemons } from './actions';
-import { forwardTo } from '../../lib/utils';
+import { loadAllPokemons, loadPaginatedPokemons } from './actions';
 
 
 const useStyles = makeStyles((theme) => {
@@ -33,11 +32,11 @@ const PokemonsPage = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const pokemons = useSelector(state => state.pokemons)
-  console.log('POKEEEAA', pokemons.pokemons, pokemons.pokemonsAll)
+  const pokemons = useSelector(state => state.pokemons.pokemons)
+  // console.log('POKEEEAA', pokemons.pokemons, pokemons.pokemonsAll)
   const pokemonsData = useSelector(state => state?.pokemons?.pokemonsData)
   const [pokemonsState, setPokemonsState] = useState(null)
-  const pokemonsCount = Math.ceil(pokemonsData?.count / 20)
+  const pokemonsCount = Math.floor(pokemonsData?.count / 20)
   const lsPageNum = localStorage.getItem('page')
   const lsAll = localStorage.getItem('all')
   const initPage = lsPageNum || 1
@@ -51,20 +50,33 @@ const PokemonsPage = () => {
 
   useEffect(() => {
     getAllPokemonsPerPagination(page)
+    providingDataToState()
     history.push(`/pokemons/${page}`)
   }, [])
 
   // useEffect(() => {
-  //   setPokemonsState(pokemons)
-  // }, [pokemons])
+  //   window.onpopstate = e => {
+  //     const location = window.location.href.split('/')[4]
+  //     const lsLocation = localStorage.getItem('page')
+  //     console.log('LOC -----', location, lsLocation)
 
-  React.useMemo(() => {
-    if (isAllCategory) {
-      setPokemonsState(pokemons.pokemonsAll)
-    } else {
-      setPokemonsState(pokemons.pokemons)
-    }
-  }, [pokemons.pokemons, pokemons.pokemonsAll])
+  //     if (location !== lsLocation) {
+  //       setPage(location || 1)
+  //       getAllPokemonsPerPagination(location || 1)
+  //       localStorage.setItem('page', location || '1')
+  //       history.push(`/pokemons/${location || 1}`)
+  //     }
+  //   }
+  // }, [page])
+
+
+  const providingDataToState = () => {
+    setPokemonsState(pokemons)
+  }
+
+  useEffect(() => {
+    providingDataToState()
+  }, [pokemons])
 
 
   const handleChangePage = (event, pageNum) => {
@@ -84,39 +96,13 @@ const PokemonsPage = () => {
   }
 
   const showAllHandler = (dir) => {
-    if (!pokemons.pokemonsAll) {
-      getAllPokemons()
-    } else {
-      setPokemonsState(pokemons.pokemonsAll)
-    }
-    setIsClicked(true)
-    history.push(`/pokemons/${dir}`)
-  }
-
-  const handleBackToPagination = () => {
-    getAllPokemonsPerPagination(page)
-    setIsClicked(false)
-    history.push(`/pokemons/${page}`)
-  }
-
-  const handleInput = (e) => {
-    console.log('val', e.target.value)
-    // setValue(e.target.value)
+    // getAllPokemons()
+    // setIsClicked(true)
+    history.push(`/${dir}Pokemons`)
   }
 
   return (
     <Layout>
-      { isAllCategory ? 
-        <TextField 
-          id="filled-basic" 
-          className="pokemons-input" 
-          label="Search Pokemon's name" 
-          variant="filled"
-          defaultValue={value}
-          onChange={ (e) => handleInput(e) }
-        /> 
-        : 
-        null }
       <div className={`pokemons ${pokemonStateClass}`}>
         <div className={`pokemons-wrapper ${newClass}`}>
           <Pokemon pokemon={pokemonsState} />
@@ -131,24 +117,15 @@ const PokemonsPage = () => {
             count={pokemonsCount}
             onChange={(e, a) => handleChangePage(e, a)}
           />
-          { !isClicked ?
-            <Button 
-              variant="contained" 
-              color="primary" 
-              className={classes.buttonOfPagination}
-              onClick={ () => showAllHandler('all') }
-            >
-              All
-            </Button>
-          :
-            <Button 
-              variant="contained" 
-              color="default"
-              className={classes.buttonOfPagination}
-              onClick={ () => handleBackToPagination('pieces') }
-            >
-              ← Back to Pagination
-            </Button> }
+
+          <Button 
+            variant="contained" 
+            color="primary" 
+            className={classes.buttonOfPagination}
+            onClick={ () => showAllHandler('all') }
+          >
+            All
+          </Button>
         </div>
       </div>
     </Layout>

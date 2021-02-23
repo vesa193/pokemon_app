@@ -1,29 +1,43 @@
-import { Container } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.css';
-import history from './history';
 import AllPokemons from './pages/allPokemons/allPokemons';
 import HomePage from './pages/home/home';
+import NotFound from './pages/notFound/notFound';
 import PokemonDetails from './pages/pokemon-details/pokemon-details';
 import PokemonsPage from './pages/pokemons/pokemons';
+import { initSaga } from './store/actions';
+import './App.css';
 
 function App() {
+  const dispatch = useDispatch()
+  console.log('pathname', window.location.pathname, process.env.PUBLIC_URL)
+
+
+  useEffect(() => {
+    dispatch(initSaga())
+  }, [])
+
+  // const removeLocalStorage = () => {
+  //   localStorage.removeItem('page')
+  //   localStorage.removeItem('all')
+  //   localStorage.removeItem('pokemon_details')
+  // }
+
+  // window.addEventListener("beforeunload", (ev) => {  
+  //   ev.preventDefault();
+  //   ev.returnValue = 'Are you sure you want to close?';
+  //   removeLocalStorage()
+  // });
+
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Switch>
-        <Route path="/" exact>
-          <HomePage />
-        </Route>
-        <Route path="/pokemons/:paginateIndex">
-          <PokemonsPage />
-        </Route>
-        <Route path="/pokemons/all">
-          <PokemonsPage />
-        </Route>
-        <Route path="/pokemon-details/:pokemonId">
-          <PokemonDetails />
-        </Route>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/pokemons/:paginateIndex" component={PokemonsPage} />
+        <Route path="/allPokemons" component={AllPokemons} />
+        <Route path="/pokemon-details/:pokemonId" component={PokemonDetails} />
+        <Route path='*' component={NotFound} />
       </Switch>
     </Router>
   );
