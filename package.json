@@ -15,6 +15,7 @@
     "axios": "^0.21.1",
     "graphql": "^15.5.0",
     "history": "^5.0.0",
+    "netlify": "^6.1.9",
     "postcss": "^8.2.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -31,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "webpack": "webpack --config webpack.config.js"
   },
   "eslintConfig": {
     "extends": "wesbos"
@@ -63,6 +65,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.1.0",
     "postcss-cli": "^8.3.1",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "webpack-cli": "^4.5.0"
   }
 }
