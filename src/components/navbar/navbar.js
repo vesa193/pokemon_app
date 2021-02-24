@@ -35,6 +35,8 @@ export const Navbar = (props) => {
   const { navLinks } = navConfig
   const lsPage = localStorage.getItem('page')
 
+  console.log('currentPath', currentPath)
+
   const handleNavLink = (path, history) => forwardTo(path, history)
   const styledLink = (path) => {
     let className = null

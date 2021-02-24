@@ -1,4 +1,5 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
@@ -56,16 +57,23 @@ const useStyles = makeStyles((theme) => {
 const SearchBox = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const history = useHistory()
+  const currentPath = history.location.pathname
   const flag = useSelector(state => state.pokemons.backToPokemonsAll)
   const [value, setValue] = useState('')
   const [error, setError] = useState(false)
 
 
-  const backHandlerToAll = () => {
+  const backHandlerToAll = (val) => {
     dispatch(loadAllPokemons(1100))
+    setValue(val)
+    history.goBack()
   }
 
   const handleInput = (e) => {
+    if (e.target.value !== '') {
+      setError(false)
+    }
     setValue(e.target.value)
   }
 
@@ -73,6 +81,7 @@ const SearchBox = () => {
     if (name.length >= 3) {
       setError(false)
       dispatch(searchPokemonName(name))
+      history.push(`/allPokemons/search?/${name}`)
     } else {
       setError(true)
     }
@@ -83,7 +92,7 @@ const SearchBox = () => {
       <Paper component="form" className={classes.root}>
         <InputBase
           className={classes.input}
-          placeholder="Type pokemon's name"
+          placeholder="Search Pokemon's name"
           inputProps={{ 'aria-label': 'search google maps' }}
           defaultValue={value}
           onChange={ (e) => handleInput(e) }
@@ -97,15 +106,19 @@ const SearchBox = () => {
         >
           <SearchIcon />
         </IconButton>
-        <Divider className={classes.divider} orientation="vertical" />
-        <IconButton
-          type="button" 
-          className={classes.iconButton} 
-          aria-label="search" 
-          onClick={ () => backHandlerToAll(value) }
-        >
-          <CloseIcon />
-        </IconButton>
+        { currentPath !== '/allPokemons' ?
+          <>
+            <Divider className={classes.divider} orientation="vertical" />
+            <IconButton
+              type="button" 
+              className={classes.iconButton} 
+              aria-label="search" 
+              onClick={ () => backHandlerToAll('') }
+            >
+              <CloseIcon />
+            </IconButton>
+          </>
+          : null }
       </Paper>
       { error ? <FormHelperText id="component-error-text" className={classes.errorText}>Field must contain 3 chars at least</FormHelperText> : null }
     </div>

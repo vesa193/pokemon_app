@@ -40,6 +40,10 @@ const Pokemon = ({ pokemon }) => {
 
   let content = state.isLoading ? `Please Wait ...` : `No Pokemons data`
 
+  if (pokemon?.length === 0 && history.location.pathname === '/allPokemons/search') {
+    content = `No Results from Search`
+  }
+
   if (pokemon) {
     content = pokemon?.map(p => {
       return (
@@ -74,7 +78,6 @@ const Pokemon = ({ pokemon }) => {
       )
     })
   }
-
 
   return content
 }

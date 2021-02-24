@@ -1,13 +1,14 @@
-import React, { useEffect, useState, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import AlertModal from '../../components/alertModal/alertModal';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon';
-import { loadAllPokemons, loadPaginatedPokemons, searchPokemonName } from '../pokemons/actions';
-import './allPokemons.css';
 import SearchBox from '../../components/searchBox/searchBox';
+import { loadAllPokemons, loadPaginatedPokemons } from '../pokemons/actions';
+import './allPokemons.css';
 
 
 const useStyles = makeStyles((theme) => {
@@ -50,7 +51,10 @@ const AllPokemons = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
+  const currentPath = history.location.pathname
   const pokemons = useSelector(state => state.pokemons.pokemonsAll)
+  const isSearched = useSelector(state => state.pokemons.backToPokemonsAll)
+  const errorMessage = useSelector(state => state.pokemons.errorMessage)
   const pokemonsAllFiltered = useSelector(state => state.pokemons.pokemonsAllFiltered)
   const [pokemonsState, setPokemonsState] = useState(null)
   const pokemonsCount = Math.floor(1118 / 20)
@@ -104,12 +108,10 @@ const AllPokemons = () => {
     dispatch(loadPaginatedPokemons(pageNum))
   };
 
-  const showAllHandler = (dir) => {
-    if (dir === 'all') {
-      setIsClicked(true)
-      getAllPokemonsPerPagination(page)
-      history.push(`/${dir}Pokemons`)
-    }
+
+  const handleBackToAllPokemons = () => {
+    getAllPokemons()
+    history.push(`/allPokemons`)
   }
 
   const handleBackToPagination = () => {
@@ -123,17 +125,27 @@ const AllPokemons = () => {
       <SearchBox />
       <div className={`pokemons ${pokemonStateClass}`}>
         <div className={`pokemons-wrapper ${newClass}`}>
-          <Pokemon pokemon={pokemonsState} />
+          { !pokemonsState?.length && currentPath !== '/allPokemons' ? <h3>No Results</h3> : <Pokemon pokemon={pokemonsState} /> }
         </div>
         <div className="pokemons-pagination">
-          <Button 
+          { !isSearched ?
+            <Button 
+              variant="contained" 
+              color="default"
+              className={classes.buttonOfPagination}
+              onClick={ () => handleBackToPagination() }
+            >
+              ← Back to Pagination
+            </Button>
+            :
+            <Button 
             variant="contained" 
             color="default"
             className={classes.buttonOfPagination}
-            onClick={ () => handleBackToPagination() }
-          >
-            ← Back to Pagination
-          </Button>
+            onClick={ () => handleBackToAllPokemons() }
+            >
+              ← Back to All Pokemons
+            </Button> }
         </div>
       </div>
     </Layout>

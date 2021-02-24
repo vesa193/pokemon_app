@@ -2,6 +2,7 @@ import { Button } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout } from '../../components/layout/layout';
+import './notFound.css'
 
 
 const NotFound = () => {

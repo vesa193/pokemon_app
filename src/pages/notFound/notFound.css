@@ -1,4 +1,9 @@
 .not-found {
+  flex: 1 1 auto;
   display: grid;
   place-items: center;
+}
+
+.not-found h3 {
+  font-size: 3rem;
 }

@@ -100,8 +100,13 @@ function* searchPokemonNameFlow(action) {
       console.log('SEARCH',  pokemons)
       // const allPokemons = yield state.pokemons.pokemonsAll
       const pokemonName = yield action.name.toLowerCase()
-      const filterPokemonsPerName = yield pokemons.filter(item => item.name.includes(pokemonName))
+      // const filterPokemonsPerName = yield pokemons.filter(item => item.name.includes(pokemonName))
+      const filterPokemonsPerName = yield pokemons.filter(item => item.name.startsWith(pokemonName))
+      yield localStorage.setItem('slug_name', pokemonName)
       // yield console.log('filterPokemonsPerName', filterPokemonsPerName)
+      if (!filterPokemonsPerName.length) {
+        yield put({ type: SET_POKEMONS_PROP, key: 'errorMessage', value: 'No results' })
+      }
       yield put({ type: SET_POKEMONS_PROP, key: 'pokemonsAll', value: filterPokemonsPerName })
       yield put({ type: SET_POKEMONS_PROP, key: 'backToPokemonsAll', value: true })
       yield put({ type: IS_LOADER_ACTIVE, isLoading: false })

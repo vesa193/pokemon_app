@@ -8,6 +8,7 @@ import PokemonDetails from './pages/pokemon-details/pokemon-details';
 import PokemonsPage from './pages/pokemons/pokemons';
 import { initSaga } from './store/actions';
 import './App.css';
+import SearchedPokemons from './pages/searchedPokemons/searchedPokemons';
 
 function App() {
   const dispatch = useDispatch()
@@ -36,6 +37,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/pokemons/:paginateIndex" component={PokemonsPage} />
         <Route path="/allPokemons" component={AllPokemons} />
+        <Route path="/allPokemons/search?/:query" component={SearchedPokemons} />
         <Route path="/pokemon-details/:pokemonId" component={PokemonDetails} />
         <Route path='*' component={NotFound} />
       </Switch>
