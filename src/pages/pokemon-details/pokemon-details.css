@@ -1,7 +1,9 @@
 .pokemon-details {
+  position: relative;
   flex: 1 1 auto;
   display: grid;
   place-items: center;
+  top: 64px;
 }
 
 .pokemon-details .MuiCardMedia-img {
@@ -10,14 +12,4 @@
 
 .pokemon-details .MuiCard-root {
   position: relative;
-}
-
-.pokemon-details .MuiPaper-root.MuiCard-root.makeStyles-root-1.MuiPaper-elevation1.MuiPaper-rounded::after {
-  position: absolute;
-  content: 'Click for more images';
-  top: 10px;
-  left: 10px;
-  padding: 7px;
-  border: 1px solid #000;
-  border-radius: 2px;
 }

@@ -50,6 +50,14 @@
   padding: 12rem 3rem;
 }
 
+.auto-grid--modal {
+  --auto-grid-min-size: 16rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--auto-grid-min-size), 1fr));
+  grid-gap: 1.5rem;
+  padding: 12rem 3rem;
+}
+
 .pokemons-pagination {
   position: fixed;
   width: 100%;

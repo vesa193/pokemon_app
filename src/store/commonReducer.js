@@ -1,7 +1,8 @@
-import { IS_LOADER_ACTIVE, SET_COMMON_PROP } from "./consts"
+import { CLOSE_MODAL_ON_VIEW_DETAILS, IS_LOADER_ACTIVE, SET_COMMON_PROP } from "./consts"
 
 const initialState = {
-  isLoading: null
+  isLoading: null,
+  isClosed: false
 }
 
 function commonReducer(state = initialState, action) {
@@ -11,6 +12,11 @@ function commonReducer(state = initialState, action) {
       return {
         ...state,
         isLoading: action.isLoading
+      }
+    case CLOSE_MODAL_ON_VIEW_DETAILS:
+      return {
+        ...state,
+        isClosed: action.isClosed
       }
     case SET_COMMON_PROP:
       return {

@@ -11,6 +11,7 @@ import { Button, makeStyles } from '@material-ui/core';
 import bgdImage from '../../assets/the_pokemon.jpg'
 import './pokemon.css'
 import { loadPokemonDetails } from '../../pages/pokemons/actions';
+import { closeModalOnViewDetails } from '../../store/actions';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -35,6 +36,7 @@ const Pokemon = ({ pokemon }) => {
   const handleShowPokemonDetails = (pokemonUrl) => {
     const pokemonId = pokemonUrl.split('pokemon/')[1].replace('/', '')
     dispatch(loadPokemonDetails(pokemonId))
+    dispatch(closeModalOnViewDetails(true))
     history.push(`/pokemon-details/${pokemonId}`)
   }
 

@@ -8,7 +8,6 @@ import Pokemon from '../../components/pokemon/pokemon';
 import { loadAllPokemons, loadPaginatedPokemons, searchPokemonName } from '../pokemons/actions';
 import SearchBox from '../../components/searchBox/searchBox';
 import './searchedPokemons.css';
-import AlertModal from '../../components/alertModal/alertModal';
 
 
 const useStyles = makeStyles((theme) => {

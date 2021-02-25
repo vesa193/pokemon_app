@@ -25,6 +25,7 @@ const createAxiosInstance = token => {
 const endpoint = {
   // TODO: add some of endpoints
   pokemon: '/pokemon',
+  type: '/type'
 }
 
 const paginatedEndpoint = (offset = 20, limit = 20) => {
@@ -45,3 +46,4 @@ export const getPokemonsData = () => createAxiosInstance().get(`${baseURL}${endp
 export const getPokemonsPaginatedData = (offsetNum, limitNum) => createAxiosInstance().get(`${baseURL}${endpoint.pokemon}${paginatedEndpoint(offsetNum, limitNum)}`).then(data => data).catch(err => console.log('error', err))
 export const getPokemonDetailsData = (pokemonUrl) => createAxiosInstance().get(`${baseURL}${pokemonDetailsEndpoint(pokemonUrl)}`).then(data => data).catch(err => console.log('error', err))
 export const getAllPokemonsData = (offsetNum, limitNum) => createAxiosInstance().get(`${baseURL}${endpoint.pokemon}${getAllEndpoint(offsetNum, limitNum)}`).then(data => data).catch(err => console.log('error', err))
+export const getAllPokemonsType = (pokemonType) => createAxiosInstance().get(`${baseURL}${endpoint.type}/${pokemonType}`).then(data => data).catch(err => console.log('error', err))

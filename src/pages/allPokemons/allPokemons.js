@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import AlertModal from '../../components/alertModal/alertModal';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon';
 import SearchBox from '../../components/searchBox/searchBox';

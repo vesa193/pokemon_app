@@ -1,7 +1,7 @@
 import { put, takeLatest, take, call, takeEvery, select } from 'redux-saga/effects'
 import { IS_LOADER_ACTIVE } from '../../store/consts';
-import { getAllPokemonsData, getPokemonDetailsData, getPokemonsData, getPokemonsPaginatedData } from '../../lib/api'
-import { LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SET_POKEMONS_PROP } from './consts';
+import { getAllPokemonsData, getPokemonDetailsData, getPokemonsData, getPokemonsPaginatedData, getAllPokemonsType } from '../../lib/api'
+import { LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SEARCH_POKEMON_TYPE, SET_POKEMONS_PROP } from './consts';
 
 function* loadAllPokemons(action) {
   // yield console.log('TOKEN saga', token)
@@ -42,6 +42,7 @@ function* loadPaginatedPokemons(action) {
       const offset = yield countOffset(action.offsetNum)
       const res = yield call(getPokemonsPaginatedData, offset, 20)
       const pokemons = yield res?.data
+      console.log('RES pokemons', pokemons)
       yield localStorage.setItem('all', 'false')
       yield put({ type: LOAD_PAGINATED_DATA_SUCCESS, pokemons: pokemons?.results })
       yield put({ type: SET_POKEMONS_PROP, key: 'pokemonsData', value: pokemons })
@@ -93,7 +94,6 @@ function* loadPokemonDetails(action) {
 function* searchPokemonNameFlow(action) {
   yield put({ type: IS_LOADER_ACTIVE, isLoading: true })
   try {
-      const state = yield select()
       console.log('searchPokemonNameFlow', action.name)
       const res = yield call(getAllPokemonsData)
       const pokemons = yield res?.data?.results
@@ -117,6 +117,26 @@ function* searchPokemonNameFlow(action) {
   }
 }
 
+function* searchPokemonTypeFlow(action) {
+  yield put({ type: IS_LOADER_ACTIVE, isLoading: true })
+  try {
+      console.log('SEARCH TYPE', action.pokemonType)
+      const res = yield call(getAllPokemonsType, action.pokemonType)
+      const arr = []
+      const pokemons = yield res?.data?.pokemon
+      yield pokemons.map(pokemon => arr.push({ ...pokemon.pokemon }) )
+      console.log('arr', arr)
+      console.log('SEARCH TYPE RES',  pokemons)
+      yield put({ type: SET_POKEMONS_PROP, key: 'pokemonsAllType', value: arr })
+      yield put({ type: IS_LOADER_ACTIVE, isLoading: false })
+  } catch (error) {
+      console.log('dddd', error)
+      yield put({ type: SET_POKEMONS_PROP, key: 'pokemonDetailsError', value: error })
+      yield put({ type: IS_LOADER_ACTIVE, isLoading: false })
+  }
+}
+
+
 export function* watchLoadAllPokemons() {
   yield takeEvery(LOAD_POKEMONS, loadAllPokemons)
 }
@@ -135,4 +155,8 @@ export function* watchLoadAllPokemonsFlow() {
 
 export function* watchSearchPokemonNameFlow() {
   yield takeEvery(SEARCH_POKEMON_NAME, searchPokemonNameFlow)
+}
+
+export function* watchSearchPokemonTypeFlow() {
+  yield takeEvery(SEARCH_POKEMON_TYPE, searchPokemonTypeFlow)
 }
