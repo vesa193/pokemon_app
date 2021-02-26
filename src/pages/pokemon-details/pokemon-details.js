@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => {
   return {
     root: {
       maxWidth: 345,
+      [theme.breakpoints.down('md')]: {
+        maxWidth: 310,
+      }
     },
     title: {
       marginTop: '8rem'
