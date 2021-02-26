@@ -71,6 +71,10 @@
   z-index: 999;
 }
 
+.pokemons-pagination nav {
+  align-self: center;
+}
+
 .pokemons-pagination .MuiPaginationItem-root, .pokemons-pagination .MuiPaginationItem-icon {
   font-size: 1.4rem;
 }
