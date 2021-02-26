@@ -40,7 +40,7 @@
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   .ability-filter {
     flex: 0 0 200px;
     width: calc(80%);
@@ -51,5 +51,16 @@
 
   .ability-filter-search {
     justify-self: flex-end;
+  }
+
+  .ability-filter-switch {
+    top: unset;
+    left: 2rem;
+    bottom: 2rem;
+  }
+
+  .ability-filter .makeStyles-formControl-13 {
+    margin: 0;
+    margin-top: 3.5rem;
   }
 }
