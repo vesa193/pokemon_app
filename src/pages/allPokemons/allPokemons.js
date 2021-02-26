@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme) => {
       top: '50%',
       borderRadius: 50,
       transform: `translateY(-50%)`,
-      zIndex: 999
+      zIndex: 999,
+      [theme.breakpoints.down('md')]: {
+        position: 'relative'
+      }
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -109,7 +112,7 @@ const AllPokemons = () => {
         <div className={`pokemons-wrapper ${newClass}`}>
           { !pokemonsState?.length && currentPath !== '/allPokemons' ? <h3>No Results</h3> : <Pokemon pokemon={pokemonsState} /> }
         </div>
-        <div className="pokemons-pagination">
+        <div className="pokemons-pagination pokemons-pagination--all">
           { !isSearched ?
             <Button 
               variant="contained" 

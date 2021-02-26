@@ -24,7 +24,12 @@ const useStyles = makeStyles((theme) => {
       top: '50%',
       borderRadius: 50,
       transform: `translateY(-50%)`,
-      zIndex: 999
+      zIndex: 999,
+      [theme.breakpoints.down('md')]: {
+        position: 'relative',
+        maxWidth: 200,
+        justifySelf: 'center'
+      }
     }
   }
 })
@@ -112,7 +117,6 @@ const PokemonsPage = () => {
             key={`page-${page}`}
             disabled={isClicked}
             defaultPage={+page}
-            className="pokemons-pagination" 
             color="primary" 
             count={pokemonsCount}
             onChange={(e, a) => handleChangePage(e, a)}

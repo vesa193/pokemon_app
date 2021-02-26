@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import './home.css';
 import { Layout } from '../../components/layout/layout';
+import Footer from '../../components/footer/footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,7 @@ const HomePage = () => {
           <Button variant="contained">See all Pokemons</Button>
         </Link>
       </div>
+      <Footer />
     </Layout>
   );
 }

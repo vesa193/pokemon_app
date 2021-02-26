@@ -39,6 +39,12 @@
   right: 10px;
 }
 
+.ability-filter-search {
+  position: relative;
+  top: 3rem;
+  justify-self: flex-end;
+}
+
 
 @media screen and (max-width: 500px) {
   .ability-filter {
@@ -51,6 +57,7 @@
 
   .ability-filter-search {
     justify-self: flex-end;
+    top: unset;
   }
 
   .ability-filter-switch {

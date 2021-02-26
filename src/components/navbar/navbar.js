@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  navbar: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -51,21 +55,23 @@ export const Navbar = (props) => {
   
   return (
     <>
-      <AppBar position="fixed" className="navbar">
-        <Toolbar>
+      <AppBar position="fixed">
+        <Toolbar className={classes.navbar}>
           <Button className="navbar-logo" color="inherit" onClick={() => handleNavLink('/', history)} />
           <Typography variant="h6" className={classes.title}>
             Pokemon App
           </Typography>
-          {
-            navLinks.map(link => (
-              <Link key={ link.id } className={`${classes.link} ${styledLink(link.path)}`} to={ link.label !== 'Home' ? `${link.path}/${lsPage || 1}`: link.path }>
-                <Button color="inherit" className={`${styledLink(link.path)}`}>
-                  { link.label }
-                </Button>
-              </Link>
-            ))
-          }
+          <div>
+            {
+              navLinks.map(link => (
+                <Link key={ link.id } className={`${classes.link} ${styledLink(link.path)}`} to={ link.label !== 'Home' ? `${link.path}/${lsPage || 1}`: link.path }>
+                  <Button color="inherit" className={`${styledLink(link.path)}`}>
+                    { link.label }
+                  </Button>
+                </Link>
+              ))
+            }
+          </div>
         </Toolbar>
       </AppBar>
       <BackHandler />
