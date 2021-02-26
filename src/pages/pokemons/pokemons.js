@@ -7,7 +7,8 @@ import Pagination from '@material-ui/lab/Pagination';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon'
 import './pokemons.css'
-import { loadAllPokemons, loadPaginatedPokemons } from './actions';
+import { getSeveralAbility, switchingFilter, loadAllPokemons, loadPaginatedPokemons, setAbilitySlug } from './actions';
+import AbilityFilter from '../../components/abilityFilter/abilityFilter';
 
 
 const useStyles = makeStyles((theme) => {
@@ -33,9 +34,11 @@ const PokemonsPage = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const pokemons = useSelector(state => state.pokemons.pokemons)
-  // console.log('POKEEEAA', pokemons.pokemons, pokemons.pokemonsAll)
   const pokemonsData = useSelector(state => state?.pokemons?.pokemonsData)
+  const isSwitched = useSelector(state => state?.pokemons?.isFilterSwitched)
+  const pokemonsAbility = useSelector(state => state?.pokemons?.pokemonsAbility)
   const [pokemonsState, setPokemonsState] = useState(null)
+  const [pokemonsAbilityState, setPokemonsAbilityState] = useState(null)
   const pokemonsCount = Math.floor(pokemonsData?.count / 20)
   const lsPageNum = localStorage.getItem('page')
   const lsAll = localStorage.getItem('all')
@@ -43,6 +46,7 @@ const PokemonsPage = () => {
   const [page, setPage] = useState(initPage);
   const [value, setValue] = useState('');
   const [isClicked, setIsClicked] = useState(false)
+  const [isShow, setIsShow] = useState(false)
   const pokemonStateClass = pokemonsState ? 'pokemons-exist' : 'pokemons-unexist'
   const newClass = pokemonsState ? 'auto-grid' : ''
   const isAllCategory = isClicked || lsAll === 'true'
@@ -52,31 +56,17 @@ const PokemonsPage = () => {
     getAllPokemonsPerPagination(page)
     providingDataToState()
     history.push(`/pokemons/${page}`)
-  }, [])
-
-  // useEffect(() => {
-  //   window.onpopstate = e => {
-  //     const location = window.location.href.split('/')[4]
-  //     const lsLocation = localStorage.getItem('page')
-  //     console.log('LOC -----', location, lsLocation)
-
-  //     if (location !== lsLocation) {
-  //       setPage(location || 1)
-  //       getAllPokemonsPerPagination(location || 1)
-  //       localStorage.setItem('page', location || '1')
-  //       history.push(`/pokemons/${location || 1}`)
-  //     }
-  //   }
-  // }, [page])
+  }, [isSwitched])
 
 
   const providingDataToState = () => {
     setPokemonsState(pokemons)
+    setPokemonsAbilityState(pokemonsAbility)
   }
 
   useEffect(() => {
     providingDataToState()
-  }, [pokemons])
+  }, [pokemons, pokemonsAbility])
 
 
   const handleChangePage = (event, pageNum) => {
@@ -86,23 +76,27 @@ const PokemonsPage = () => {
     dispatch(loadPaginatedPokemons(pageNum))
   };
 
-  const getAllPokemons = () => {
-    dispatch(loadAllPokemons())
-  }
-
   const getAllPokemonsPerPagination = (pageNum) => {
-    // dispatch(loadPokemons())
-    dispatch(loadPaginatedPokemons(pageNum, false))
+    dispatch(loadPaginatedPokemons(pageNum, false, isSwitched))
   }
 
   const showAllHandler = (dir) => {
-    // getAllPokemons()
-    // setIsClicked(true)
     history.push(`/${dir}Pokemons`)
+  }
+
+  const showFilterHandler = () => {
+    setIsShow(true)
+  }
+
+  const getAllPokemonsPerAbility = (abilityType) => {
+    dispatch(getSeveralAbility(abilityType))
+    dispatch(setAbilitySlug(abilityType))
+    history.push(`/pokemon-ability/${abilityType}`)
   }
 
   return (
     <Layout>
+      <AbilityFilter pokemonAbilities={pokemonsAbility} getAllPokemonsPerAbility={(name) => getAllPokemonsPerAbility(name)} />
       <div className={`pokemons ${pokemonStateClass}`}>
         <div className={`pokemons-wrapper ${newClass}`}>
           <Pokemon pokemon={pokemonsState} />

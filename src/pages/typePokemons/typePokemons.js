@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon';
-import { loadAllPokemons, loadPaginatedPokemons, searchPokemonName } from '../pokemons/actions';
+import { getSeveralAbility, loadAllPokemons, loadPaginatedPokemons, searchPokemonName } from '../pokemons/actions';
 import SearchBox from '../../components/searchBox/searchBox';
-import './searchedPokemons.css';
+import './abilityPokemons.css';
 
 
 const useStyles = makeStyles((theme) => {
@@ -46,30 +46,24 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-const SearchedPokemons = () => {
+const TypePokemons = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const pokemons = useSelector(state => state.pokemons.pokemonsAll)
-  const isSearched = useSelector(state => state.pokemons.backToPokemonsAll)
-  const errorMessage = useSelector(state => state.pokemons.errorMessage)
-  const slug = useSelector(state => state.pokemons.searchedNameSlug)
-  const lsSlug = localStorage.getItem('slug_name')
+  const pokemons = useSelector(state => state.pokemons.pokemonsAllAbility)
+  const slug = useSelector(state => state.pokemons.abilitySlug)
+  const lsSlug = localStorage.getItem('slug_ability')
   const slugName = slug || lsSlug
-  const pokemonsAllFiltered = useSelector(state => state.pokemons.pokemonsAllFiltered)
+  const pokemonsAllAbility = useSelector(state => state.pokemons.pokemonsAllAbility)
   const [pokemonsState, setPokemonsState] = useState(null)
-  const pokemonsCount = Math.floor(1118 / 20)
   const lsPageNum = localStorage.getItem('page')
-  const lsAll = localStorage.getItem('all')
   const initPage = +lsPageNum || 1
-  const [page, setPage] = useState(initPage);
-  const [isClicked, setIsClicked] = useState(false)
   const pokemonStateClass = pokemonsState ? 'pokemons-exist' : 'pokemons-unexist'
   const newClass = pokemonsState ? 'auto-grid' : ''
 
   useEffect(() => {
-    dispatch(searchPokemonName(slugName))
-    history.push(`/allPokemons/search?/${slugName}`)
+    dispatch(getSeveralAbility(slugName))
+    history.push(`/pokemon-ability/${slugName}`)
   }, [])
 
   useEffect(() => {
@@ -79,8 +73,8 @@ const SearchedPokemons = () => {
 
   return (
     <Layout>
-      <SearchBox />
-      <div className={`pokemons ${pokemonStateClass}`}>
+      <div className={`pokemons pokemons--ability ${pokemonStateClass}`}>
+        <h3>Filtered Pokemons per Ability</h3>
         <div className={`pokemons-wrapper ${newClass}`}>
           <Pokemon pokemon={pokemonsState} />
         </div>
@@ -89,4 +83,4 @@ const SearchedPokemons = () => {
   );
 }
  
-export default SearchedPokemons;
+export default TypePokemons;

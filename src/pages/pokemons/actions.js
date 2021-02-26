@@ -1,4 +1,4 @@
-import { LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SEARCH_POKEMON_TYPE } from './consts'
+import { GET_SEVERAL_ABILITY, IS_FILTER_SWICHED, LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SEARCH_POKEMON_TYPE, SET_ABILITY_SLUG, SET_SEARCHED_NAME_SLUG } from './consts'
 
 export const loadPokemons = () => {
   return {
@@ -21,12 +21,12 @@ export const loadPokemonsFailed = (error) => {
 }
 
 
-export const loadPaginatedPokemons = (offsetNum, isShowAll, cb) => {
+export const loadPaginatedPokemons = (offsetNum, isShowAll, isFilterSwiched) => {
   return {
     type: LOAD_PAGINATED_DATA,
     offsetNum,
     isShowAll,
-    cb
+    isFilterSwiched
   }
 }
 
@@ -71,5 +71,33 @@ export const searchPokemonType = (pokemonType) => {
   return {
     type: SEARCH_POKEMON_TYPE,
     pokemonType
+  }
+}
+
+export const getSeveralAbility = (pokemonAbility) => {
+  return {
+    type: GET_SEVERAL_ABILITY,
+    pokemonAbility
+  }
+}
+
+export const setSearchedNameSlug = (searchedNameSlug) => {
+  return {
+    type: SET_SEARCHED_NAME_SLUG,
+    searchedNameSlug
+  }
+}
+
+export const setAbilitySlug = (abilitySlug) => {
+  return {
+    type: SET_ABILITY_SLUG,
+    abilitySlug
+  }
+}
+
+export const switchingFilter = (isFilterSwitched) => {
+  return {
+    type: IS_FILTER_SWICHED,
+    isFilterSwitched
   }
 }

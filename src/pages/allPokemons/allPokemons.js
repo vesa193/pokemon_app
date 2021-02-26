@@ -64,24 +64,9 @@ const AllPokemons = () => {
   const [isClicked, setIsClicked] = useState(false)
   const pokemonStateClass = pokemonsState ? 'pokemons-exist' : 'pokemons-unexist'
   const newClass = pokemonsState ? 'auto-grid' : ''
-  // console.log('INFOOO1')
-
-  // useEffect(() => {
-  //   getAllPokemonsPerPagination(page)
-  //   history.push(`/pokemons/${page}`)
-  // }, [])
-
-  // useEffect(() => {
-  //   if (lsAll === 'true') {
-  //     history.push(`/allPokemons`)
-  //   } else {
-  //     history.push(`/pokemons/${page}`)
-  //   }
-  // }, [])
 
 
   useEffect(() => {
-    console.log('allPokemons page')
     getAllPokemons()
     history.push(`/allPokemons`)
   }, [])
@@ -91,7 +76,6 @@ const AllPokemons = () => {
   }, [pokemons])
 
   const getAllPokemonsPerPagination = (pageNum) => {
-    // dispatch(loadPokemons())
     dispatch(loadPaginatedPokemons(pageNum, false))
   }
 
@@ -101,7 +85,6 @@ const AllPokemons = () => {
 
   const handleChangePage = (event, pageNum) => {
     setPage(+pageNum)
-    console.log('event, pageNum', event, pageNum)
     localStorage.setItem('page', `${pageNum}`)
     history.push(`/pokemons/${pageNum}`)
     dispatch(loadPaginatedPokemons(pageNum))

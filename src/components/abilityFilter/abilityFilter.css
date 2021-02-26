@@ -1,0 +1,54 @@
+.ability-filter {
+  position: relative;
+  flex: 0 0 150px;
+  width: calc(90%);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  top: calc(64px * 2 + 10px);
+  left: 3rem;
+  right: 3rem;
+  background: #eee;
+  padding: 2rem;
+  overflow: hidden;
+  border-radius: 6px;
+  transition: all .3s ease-out;
+  z-index: 100;
+}
+
+.ability-filter h3 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.ability-filter .MuiSelect-selectMenu {
+  font-size: 1.7rem;
+  text-transform: capitalize;
+}
+
+.ability-filter.ability-filter--opened {
+  grid-template-columns: 1fr auto;
+}
+
+.ability-filter-switch {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+
+@media screen and (max-width: 400px) {
+  .ability-filter {
+    flex: 0 0 200px;
+    width: calc(80%);
+    grid-template-columns: unset;
+    grid-template-rows: 1fr auto;
+    grid-row-gap: unset;
+  }
+
+  .ability-filter-search {
+    justify-self: flex-end;
+  }
+}

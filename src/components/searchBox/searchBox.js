@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 import { FormHelperText, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAllPokemons, searchPokemonName } from '../../pages/pokemons/actions';
+import { loadAllPokemons, searchPokemonName, setSearchedNameSlug } from '../../pages/pokemons/actions';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -81,6 +81,7 @@ const SearchBox = () => {
     if (name.length >= 3) {
       setError(false)
       dispatch(searchPokemonName(name))
+      dispatch(setSearchedNameSlug(name))
       history.push(`/allPokemons/search?/${name}`)
     } else {
       setError(true)

@@ -1,5 +1,5 @@
 import { all } from "redux-saga/effects";
-import { watchLoadAllPokemons, watchLoadAllPokemonsFlow, watchLoadPaginatedPokemons, watchLoadPokemonDetails, watchSearchPokemonNameFlow, watchSearchPokemonTypeFlow } from "../pages/pokemons/sagas";
+import { watchGetPokemonAbilityFlow, watchLoadAllPokemons, watchLoadAllPokemonsFlow, watchLoadPaginatedPokemons, watchLoadPokemonDetails, watchSearchPokemonNameFlow, watchSearchPokemonTypeFlow } from "../pages/pokemons/sagas";
 import { watchInitSaga } from "./commonSaga";
 
 export default function* rootSaga() {
@@ -10,6 +10,7 @@ export default function* rootSaga() {
     watchLoadAllPokemonsFlow(),
     watchInitSaga(),
     watchSearchPokemonNameFlow(),
-    watchSearchPokemonTypeFlow()
+    watchSearchPokemonTypeFlow(),
+    watchGetPokemonAbilityFlow()
   ])
 }

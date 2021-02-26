@@ -85,9 +85,6 @@ const PokemonDetails = () => {
   const [open, setOpen] = React.useState(false);
   const [isOpenModal, setIsOpenModal] = React.useState(false);
 
-  console.log('dkdkdkdk', isClosed)
-
-
   const handleDialog = (dir) => {
     if (dir === 'open') {
       setOpen(true);
