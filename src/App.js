@@ -9,6 +9,7 @@ import NotFound from './pages/notFound/notFound';
 import PokemonDetails from './pages/pokemon-details/pokemon-details';
 import PokemonsPage from './pages/pokemons/pokemons';
 import SearchedPokemons from './pages/searchedPokemons/searchedPokemons';
+import TypePokemons from './pages/typePokemons/typePokemons';
 import { initSaga } from './store/actions';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/pokemons/:paginateIndex" component={PokemonsPage} />
         <Route path="/pokemon-ability/:abilitySlug" component={AbilityPokemons} />
+        <Route path="/pokemon-type/:typeSlug" component={TypePokemons} />
         <Route path="/allPokemons" component={AllPokemons} />
         <Route path="/allPokemons/search?/:query" component={SearchedPokemons} />
         <Route path="/pokemon-details/:pokemonId" component={PokemonDetails} />

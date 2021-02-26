@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon';
-import { getSeveralAbility, loadAllPokemons, loadPaginatedPokemons, searchPokemonName } from '../pokemons/actions';
+import { getSeveralAbility, getSeveralType, loadAllPokemons, loadPaginatedPokemons, searchPokemonName } from '../pokemons/actions';
 import SearchBox from '../../components/searchBox/searchBox';
-import './abilityPokemons.css';
+import { uppercaseFirstLetter } from '../../lib/utils';
+import '../abilityPokemons/abilityPokemons.css';
 
 
 const useStyles = makeStyles((theme) => {
@@ -47,23 +48,19 @@ const useStyles = makeStyles((theme) => {
 })
 
 const TypePokemons = () => {
-  const classes = useStyles()
   const dispatch = useDispatch()
   const history = useHistory()
-  const pokemons = useSelector(state => state.pokemons.pokemonsAllAbility)
-  const slug = useSelector(state => state.pokemons.abilitySlug)
-  const lsSlug = localStorage.getItem('slug_ability')
+  const pokemons = useSelector(state => state.pokemons.pokemonsAllType)
+  const slug = useSelector(state => state.pokemons.typeSlug)
+  const lsSlug = localStorage.getItem('slug_type')
   const slugName = slug || lsSlug
-  const pokemonsAllAbility = useSelector(state => state.pokemons.pokemonsAllAbility)
   const [pokemonsState, setPokemonsState] = useState(null)
-  const lsPageNum = localStorage.getItem('page')
-  const initPage = +lsPageNum || 1
   const pokemonStateClass = pokemonsState ? 'pokemons-exist' : 'pokemons-unexist'
   const newClass = pokemonsState ? 'auto-grid' : ''
 
   useEffect(() => {
-    dispatch(getSeveralAbility(slugName))
-    history.push(`/pokemon-ability/${slugName}`)
+    dispatch(getSeveralType(slugName))
+    history.push(`/pokemon-type/${slugName}`)
   }, [])
 
   useEffect(() => {
@@ -74,7 +71,7 @@ const TypePokemons = () => {
   return (
     <Layout>
       <div className={`pokemons pokemons--ability ${pokemonStateClass}`}>
-        <h3>Filtered Pokemons per Ability</h3>
+        <h3>Filtered Pokemons per <span>{uppercaseFirstLetter(slugName)}</span> Type</h3>
         <div className={`pokemons-wrapper ${newClass}`}>
           <Pokemon pokemon={pokemonsState} />
         </div>

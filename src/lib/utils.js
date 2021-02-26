@@ -7,3 +7,7 @@ export const forwardTo = (location, history, historyState = null) => {
 	
   history.push(location, historyState)
 }
+
+export function uppercaseFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

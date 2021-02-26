@@ -1,10 +1,10 @@
-import React from 'react'
-import { AppBar, Button, Toolbar, Typography, IconButton, makeStyles } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { navConfig } from './navConfig'
-import './navbar.css'
 import { forwardTo } from '../../lib/utils';
+import BackHandler from '../backHandler/backHandler';
+import './navbar.css';
+import { navConfig } from './navConfig';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,9 +34,7 @@ export const Navbar = (props) => {
   const currentPath = history.location.pathname
   const { navLinks } = navConfig
   const lsPage = localStorage.getItem('page')
-
-  console.log('currentPath', currentPath)
-
+  
   const handleNavLink = (path, history) => forwardTo(path, history)
   const styledLink = (path) => {
     let className = null
@@ -52,22 +50,25 @@ export const Navbar = (props) => {
   }
   
   return (
-    <AppBar position="fixed" className="navbar">
-      <Toolbar>
-        <Button className="navbar-logo" color="inherit" onClick={() => handleNavLink('/', history)} />
-        <Typography variant="h6" className={classes.title}>
-          Pokemon App
-        </Typography>
-        {
-          navLinks.map(link => (
-            <Link key={ link.id } className={`${classes.link} ${styledLink(link.path)}`} to={ link.label !== 'Home' ? `${link.path}/${lsPage || 1}`: link.path }>
-              <Button color="inherit" className={`${styledLink(link.path)}`}>
-                { link.label }
-              </Button>
-            </Link>
-          ))
-        }
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar position="fixed" className="navbar">
+        <Toolbar>
+          <Button className="navbar-logo" color="inherit" onClick={() => handleNavLink('/', history)} />
+          <Typography variant="h6" className={classes.title}>
+            Pokemon App
+          </Typography>
+          {
+            navLinks.map(link => (
+              <Link key={ link.id } className={`${classes.link} ${styledLink(link.path)}`} to={ link.label !== 'Home' ? `${link.path}/${lsPage || 1}`: link.path }>
+                <Button color="inherit" className={`${styledLink(link.path)}`}>
+                  { link.label }
+                </Button>
+              </Link>
+            ))
+          }
+        </Toolbar>
+      </AppBar>
+      <BackHandler />
+    </>
   );
 }

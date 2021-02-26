@@ -1,9 +1,9 @@
-import React from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { Backdrop, makeStyles } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { Navbar } from '../navbar/navbar'
-import './layout.css'
+import { Navbar } from '../navbar/navbar';
+import './layout.css';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {

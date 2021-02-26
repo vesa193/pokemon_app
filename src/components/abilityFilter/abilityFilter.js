@@ -43,6 +43,9 @@ const AbilityFilter = ({ pokemonAbilities, getAllPokemonsPerAbility, getAllPokem
     if (abilitySlug && !checked) {
       getAllPokemonsPerAbility(abilitySlug)
     }
+    if (abilitySlug && checked) {
+      getAllPokemonsPerType(abilitySlug)
+    }
   }
 
   const handleSwitch = () => {

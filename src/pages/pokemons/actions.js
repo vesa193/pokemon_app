@@ -1,4 +1,4 @@
-import { GET_SEVERAL_ABILITY, IS_FILTER_SWICHED, LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SEARCH_POKEMON_TYPE, SET_ABILITY_SLUG, SET_SEARCHED_NAME_SLUG } from './consts'
+import { GET_SEVERAL_ABILITY, IS_FILTER_SWICHED, LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SEARCH_POKEMON_TYPE, SET_ABILITY_SLUG, SET_SEARCHED_NAME_SLUG, SET_TYPE_SLUG, GET_SEVERAL_TYPE } from './consts'
 
 export const loadPokemons = () => {
   return {
@@ -81,6 +81,13 @@ export const getSeveralAbility = (pokemonAbility) => {
   }
 }
 
+export const getSeveralType = (pokemonType) => {
+  return {
+    type: GET_SEVERAL_TYPE,
+    pokemonType
+  }
+}
+
 export const setSearchedNameSlug = (searchedNameSlug) => {
   return {
     type: SET_SEARCHED_NAME_SLUG,
@@ -92,6 +99,13 @@ export const setAbilitySlug = (abilitySlug) => {
   return {
     type: SET_ABILITY_SLUG,
     abilitySlug
+  }
+}
+
+export const setTypeSlug = (typeSlug) => {
+  return {
+    type: SET_TYPE_SLUG,
+    typeSlug
   }
 }
 

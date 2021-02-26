@@ -7,7 +7,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon'
 import './pokemons.css'
-import { getSeveralAbility, switchingFilter, loadAllPokemons, loadPaginatedPokemons, setAbilitySlug } from './actions';
+import { getSeveralAbility, switchingFilter, loadAllPokemons, loadPaginatedPokemons, setAbilitySlug, getSeveralType, setTypeSlug } from './actions';
 import AbilityFilter from '../../components/abilityFilter/abilityFilter';
 
 
@@ -93,10 +93,16 @@ const PokemonsPage = () => {
     dispatch(setAbilitySlug(abilityType))
     history.push(`/pokemon-ability/${abilityType}`)
   }
+  
+  const getAllPokemonsPerType = (pokemonType) => {
+    dispatch(getSeveralType(pokemonType))
+    dispatch(setTypeSlug(pokemonType))
+    history.push(`/pokemon-type/${pokemonType}`)
+  }
 
   return (
     <Layout>
-      <AbilityFilter pokemonAbilities={pokemonsAbility} getAllPokemonsPerAbility={(name) => getAllPokemonsPerAbility(name)} />
+      <AbilityFilter pokemonAbilities={pokemonsAbility} getAllPokemonsPerAbility={(name) => getAllPokemonsPerAbility(name)} getAllPokemonsPerType={(name) => getAllPokemonsPerType(name)} />
       <div className={`pokemons ${pokemonStateClass}`}>
         <div className={`pokemons-wrapper ${newClass}`}>
           <Pokemon pokemon={pokemonsState} />

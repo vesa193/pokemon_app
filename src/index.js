@@ -1,20 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ApolloProvider } from '@apollo/client';
 import App from './App';
 import { store } from './app/store';
 import * as serviceWorker from './serviceWorker';
-import { client } from './app/apolloClient';
 import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <ApolloProvider client={client}> */}
-      <Provider store={store}>
-        <App />
-      </Provider>
-    {/* </ApolloProvider> */}
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

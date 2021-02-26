@@ -1,4 +1,4 @@
-import { LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, SET_ABILITY_SLUG, SET_POKEMONS_PROP, SET_SEARCHED_NAME_SLUG, IS_FILTER_SWICHED } from "./consts"
+import { LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, SET_ABILITY_SLUG, SET_POKEMONS_PROP, SET_SEARCHED_NAME_SLUG, IS_FILTER_SWICHED, SET_TYPE_SLUG } from "./consts"
 
 const initialState = {
   pokemons: null,
@@ -40,6 +40,11 @@ function pokemonsReducer(state = initialState, action) {
       return {
         ...state,
         abilitySlug: action.abilitySlug
+      }
+    case SET_TYPE_SLUG:
+      return {
+        ...state,
+        typeSlug: action.typeSlug
       }
     case IS_FILTER_SWICHED:
       return {

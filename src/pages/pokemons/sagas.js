@@ -1,7 +1,7 @@
 import { put, takeLatest, take, call, takeEvery, select } from 'redux-saga/effects'
 import { IS_LOADER_ACTIVE } from '../../store/consts';
-import { getAllPokemonsData, getPokemonDetailsData, getPokemonsData, getPokemonsPaginatedData, getAllPokemonsType, getAllPokemonsAbility, getAllPokemonsPerAbility, getAllPokemonsKindOfType } from '../../lib/api'
-import { GET_SEVERAL_ABILITY, LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SEARCH_POKEMON_TYPE, SET_POKEMONS_PROP } from './consts';
+import { getAllPokemonsData, getPokemonDetailsData, getPokemonsData, getPokemonsPaginatedData, getAllPokemonsType, getAllPokemonsAbility, getAllPokemonsPerAbility, getAllPokemonsKindOfType, getAllPokemonsPerType } from '../../lib/api'
+import { GET_SEVERAL_ABILITY, GET_SEVERAL_TYPE, LOAD_ALL_POKEMONS, LOAD_PAGINATED_DATA, LOAD_PAGINATED_DATA_FAILED, LOAD_PAGINATED_DATA_SUCCESS, LOAD_POKEMONS, LOAD_POKEMONS_FAILED, LOAD_POKEMONS_SUCCESS, LOAD_POKEMON_DETAILS, SEARCH_POKEMON_NAME, SEARCH_POKEMON_TYPE, SET_POKEMONS_PROP } from './consts';
 
 function* loadAllPokemons(action) {
   yield put({ type: IS_LOADER_ACTIVE, isLoading: true })
@@ -139,6 +139,23 @@ function* getPokemonAbilityFlow(action) {
   }
 }
 
+function* getPokemonTypeFlow(action) {
+  yield put({ type: IS_LOADER_ACTIVE, isLoading: true })
+  try {
+      const res = yield call(getAllPokemonsPerType, action.pokemonType)
+      const arr = []
+      const pokemons = yield res?.data?.pokemon
+      yield pokemons.map(pokemon => arr.push({ ...pokemon.pokemon }) )
+      yield localStorage.setItem('slug_type', action.pokemonType)
+      yield put({ type: SET_POKEMONS_PROP, key: 'pokemonTypeSlug', value: action.pokemonType })
+      yield put({ type: SET_POKEMONS_PROP, key: 'pokemonsAllType', value: arr })
+      yield put({ type: IS_LOADER_ACTIVE, isLoading: false })
+  } catch (error) {
+      yield put({ type: SET_POKEMONS_PROP, key: 'pokemonDetailsError', value: error })
+      yield put({ type: IS_LOADER_ACTIVE, isLoading: false })
+  }
+}
+
 
 export function* watchLoadAllPokemons() {
   yield takeEvery(LOAD_POKEMONS, loadAllPokemons)
@@ -166,4 +183,8 @@ export function* watchSearchPokemonTypeFlow() {
 
 export function* watchGetPokemonAbilityFlow() {
   yield takeEvery(GET_SEVERAL_ABILITY, getPokemonAbilityFlow)
+}
+
+export function* watchGetPokemonTypeFlow() {
+  yield takeEvery(GET_SEVERAL_TYPE, getPokemonTypeFlow)
 }

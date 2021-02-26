@@ -8,6 +8,7 @@ import Pokemon from '../../components/pokemon/pokemon';
 import { getSeveralAbility, loadAllPokemons, loadPaginatedPokemons, searchPokemonName } from '../pokemons/actions';
 import SearchBox from '../../components/searchBox/searchBox';
 import './abilityPokemons.css';
+import { uppercaseFirstLetter } from '../../lib/utils';
 
 
 const useStyles = makeStyles((theme) => {
@@ -74,7 +75,7 @@ const AbilityPokemons = () => {
   return (
     <Layout>
       <div className={`pokemons pokemons--ability ${pokemonStateClass}`}>
-        <h3>Filtered Pokemons per Ability</h3>
+        <h3>Filtered Pokemons per <span>{uppercaseFirstLetter(slugName)}</span> Ability</h3>
         <div className={`pokemons-wrapper ${newClass}`}>
           <Pokemon pokemon={pokemonsState} />
         </div>
