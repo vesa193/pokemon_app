@@ -36,8 +36,10 @@ const useStyles = makeStyles((theme) => ({
 const AbilityFilter = ({ pokemonAbilities, getAllPokemonsPerAbility, getAllPokemonsPerType }) => {
   const classes = useStyles();
   const dispatch = useDispatch()
-  const [ability, setAbility] = React.useState('');
-  const [checked, setChecked] = React.useState(false);
+  const lsChecked = localStorage.getItem('switcher')
+  const initChecked = JSON.parse(lsChecked) || false
+  const [ability, setAbility] = React.useState('')
+  const [checked, setChecked] = React.useState(initChecked)
 
   const handleChange = (event) => {
     setAbility(event.target.value);
@@ -56,6 +58,7 @@ const AbilityFilter = ({ pokemonAbilities, getAllPokemonsPerAbility, getAllPokem
   const handleSwitch = () => {
     setChecked(!checked)
     dispatch(switchingFilter(!checked))
+    localStorage.setItem('switcher', `${!checked}`)
   }
 
   const labelType = checked ? 'Type' : 'Ability' 
@@ -73,7 +76,7 @@ const AbilityFilter = ({ pokemonAbilities, getAllPokemonsPerAbility, getAllPokem
               color="primary"
             />
           }
-          label={labelType}
+          label={`Switched to ${labelType}`}
         />
       </div>
       <FormControl className={classes.formControl}>
