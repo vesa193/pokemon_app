@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Button, makeStyles } from '@material-ui/core';
-import bgdImage from '../../assets/the_pokemon.jpg'
+import bgdImage from '../../assets/pokemon_img.png'
 import './pokemon.css'
 import { loadPokemonDetails } from '../../pages/pokemons/actions';
 import { closeModalOnViewDetails } from '../../store/actions';
