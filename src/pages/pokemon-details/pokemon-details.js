@@ -20,6 +20,7 @@ import AlertModal from '../../components/alert/alertModal';
 import { Layout } from '../../components/layout/layout';
 import Pokemon from '../../components/pokemon/pokemon';
 import { Slider } from '../../components/slider/slider';
+import { uppercaseFirstLetter } from '../../lib/utils';
 import { searchPokemonType } from '../pokemons/actions';
 import './pokemon-details.css';
 
@@ -48,7 +49,10 @@ const useStyles = makeStyles((theme) => {
       }
     },
     title: {
-      marginTop: '8rem'
+      marginTop: '8rem',
+      [theme.breakpoints.down('sm')]: {
+        display: 'none'
+      }
     },
     typography: {
       fontSize: '1.1rem',
@@ -186,7 +190,7 @@ const PokemonDetails = () => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">Pokemon Slider</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Pokemon Slider of {uppercaseFirstLetter(data?.name)}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               <Slider sprites={data?.sprites} />
