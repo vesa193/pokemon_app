@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { switchingFilter } from '../../pages/pokemons/actions';
 import './abilityFilter.css';
@@ -40,6 +40,10 @@ const AbilityFilter = ({ pokemonAbilities, getAllPokemonsPerAbility, getAllPokem
   const initChecked = JSON.parse(lsChecked) || false
   const [ability, setAbility] = React.useState('')
   const [checked, setChecked] = React.useState(initChecked)
+
+  useEffect(() => {
+    console.log('ABILITY FLTER')
+  }, [lsChecked])
 
   const handleChange = (event) => {
     setAbility(event.target.value);

@@ -34,12 +34,14 @@ function* loadPaginatedPokemons(action) {
   yield put({ type: IS_LOADER_ACTIVE, isLoading: true })
   try {
       const offset = yield countOffset(action.offsetNum)
+      const lsSwitch = JSON.parse(localStorage.getItem('switcher'))
+      const isSwitched = lsSwitch || action.isFilterSwiched
       const res = yield call(getPokemonsPaginatedData, offset, 20)
       let resSecond = null
-      if (!action.isFilterSwiched) {
-        resSecond = yield call(getAllPokemonsAbility)
-      } else {
+      if (isSwitched) {
         resSecond = yield call(getAllPokemonsKindOfType)
+      } else {
+        resSecond = yield call(getAllPokemonsAbility)
       }
       const pokemons = yield res?.data
       const pokemonsAbilityData = yield resSecond?.data
