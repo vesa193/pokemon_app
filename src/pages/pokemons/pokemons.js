@@ -41,7 +41,7 @@ const PokemonsPage = () => {
   const pokemons = useSelector(state => state.pokemons.pokemons)
   const pokemonsData = useSelector(state => state?.pokemons?.pokemonsData)
   const isSwitched = useSelector(state => state?.pokemons?.isFilterSwitched)
-  const lsSwitch = localStorage.getItem('switcher')
+  const lsSwitch = JSON.parse(localStorage.getItem('switcher')) || isSwitched
   const pokemonsAbility = useSelector(state => state?.pokemons?.pokemonsAbility)
   const [pokemonsState, setPokemonsState] = useState(null)
   const [pokemonsAbilityState, setPokemonsAbilityState] = useState(null)

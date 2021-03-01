@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { switchingFilter } from '../../pages/pokemons/actions';
+import { loadPaginatedPokemons, switchingFilter } from '../../pages/pokemons/actions';
 import './abilityFilter.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,13 +37,15 @@ const AbilityFilter = ({ pokemonAbilities, getAllPokemonsPerAbility, getAllPokem
   const classes = useStyles();
   const dispatch = useDispatch()
   const lsChecked = localStorage.getItem('switcher')
+  const lsPage = localStorage.getItem('page')
   const initChecked = JSON.parse(lsChecked) || false
   const [ability, setAbility] = React.useState('')
   const [checked, setChecked] = React.useState(initChecked)
 
   useEffect(() => {
     console.log('ABILITY FLTER')
-  }, [lsChecked])
+    dispatch(loadPaginatedPokemons(lsPage, false, checked))
+  }, [checked])
 
   const handleChange = (event) => {
     setAbility(event.target.value);
