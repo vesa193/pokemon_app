@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -64,9 +64,8 @@ const SearchBox = () => {
   const [error, setError] = useState(false)
 
 
-  const backHandlerToAll = (val) => {
+  const backHandlerToAll = () => {
     dispatch(loadAllPokemons(1100))
-    setValue(val)
     history.goBack()
   }
 
@@ -77,20 +76,31 @@ const SearchBox = () => {
     setValue(e.target.value)
   }
 
-  const handleQueryName = (name) => {
-    if (name.length >= 3) {
+  const handleQueryName = (e, name) => {
+    e.preventDefault()
+    
+    if (name.length >= 3 || e.keyCode === 13 && name.length >= 3) {
       setError(false)
       dispatch(searchPokemonName(name))
       dispatch(setSearchedNameSlug(name))
       history.push(`/allPokemons/search?/${name}`)
+    } else if (name.length >= 3 || e.keyCode === 27 && name.length >= 3) {
+      backHandlerToAll(name)
     } else {
       setError(true)
     }
   }
 
+  const handleCloseSearching = (e) => {
+    if (e.keyCode === 27 && currentPath.includes('search')) {
+      backHandlerToAll()
+      setValue('')
+    }
+  }
+
   return (
     <div className="pokemons-input">
-      <Paper component="form" className={classes.root}>
+      <Paper component="form" className={classes.root} onSubmit={ (e) => handleQueryName(e, value) } onKeyDown={ (e) => handleCloseSearching(e) } >
         <InputBase
           className={classes.input}
           placeholder="Search Pokemon's name"
@@ -100,10 +110,10 @@ const SearchBox = () => {
         />
         <Divider className={classes.divider} orientation="vertical" />
         <IconButton 
-          type="button" 
+          type="submit" 
           className={classes.iconButton} 
           aria-label="search" 
-          onClick={ () => handleQueryName(value) }
+          onClick={ (e) => handleQueryName(e, value) }
         >
           <SearchIcon />
         </IconButton>
@@ -114,7 +124,7 @@ const SearchBox = () => {
               type="button" 
               className={classes.iconButton} 
               aria-label="search" 
-              onClick={ () => backHandlerToAll('') }
+              onClick={ () => backHandlerToAll() }
             >
               <CloseIcon />
             </IconButton>
